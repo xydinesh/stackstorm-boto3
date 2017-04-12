@@ -1,0 +1,20 @@
+---
+name: "action"
+runner_type: "python-script"
+description: "Run boto3 action"
+enabled: true
+entry_point: "action.py"
+pack: "boto3"
+parameters:
+  service:
+    type: "string"
+    description: "Name of the service to create client"
+    required: true
+  action_name:
+    type: "string"
+    description: "Name of the action to run"
+    required: true
+  kwargs:
+    type: object
+    description: "Parameters for the action"
+
