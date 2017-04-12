@@ -10,6 +10,10 @@ parameters:
     type: "string"
     description: "Name of the service to create client"
     required: true
+  region:
+    type: "string"
+    description: "Region where action is performed"
+    required: true
   action_name:
     type: "string"
     description: "Name of the action to run"
