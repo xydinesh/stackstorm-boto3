@@ -18,7 +18,7 @@ parameters:
     type: "string"
     description: "Name of the action to run"
     required: true
-  kwargs:
+  params:
     type: object
     description: "Parameters for the action"
 
