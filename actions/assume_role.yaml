@@ -13,7 +13,7 @@ parameters:
   role_session_name:
     type: "string"
     description: "Name for the session"
-    default: "Default Session"
+    default: "DefaultAssumeSession"
   policy:
     type: "string"
     description: "Policy document"
