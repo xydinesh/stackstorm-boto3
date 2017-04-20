@@ -7,14 +7,22 @@ from st2actions.runners.pythonrunner import Action
 class Boto3AssumeRoleRunner(Action):
     def run(self, role_arn, role_session_name, policy, duration, external_id, serial_number, token_code):
         client = boto3.client('sts')
-        response = client.assume_role(
-            RoleArn=role_arn,
-            RoleSessionName=role_session_name,
-            Policy=policy,
-            DurationSeconds=duration,
-            ExternalId=external_id,
-            SerialNumber=serial_number,
-            TokenCode=token_code)
+        kwargs = {}
+        kwargs['RoleArn'] = role_arn
+        kwargs['RoleSessionName'] = role_session_name
+        kwargs['DurationSeconds'] = duration
+        if policy is not None:
+            kwargs['Policy'] = policy
             
-        print 'sts response', response
+        if external_id is not None:
+            kwargs['ExternalId'] = external_id
+
+        if serial_number is not None:
+            kwargs['SerialNumber'] = serial_number
+
+        if token_code is not None:
+            kwargs['TokenCode'] = token_code
+
+	response = client.assume_role(**kwargs)
+	response['Credentials']['Expiration'] = response['Credentials']['Expiration'].isoformat()
         return (True, response)
