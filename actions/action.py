@@ -5,8 +5,20 @@ from st2actions.runners.pythonrunner import Action
 
 # pylint: disable=too-few-public-methods
 class Boto3ActionRunner(Action):
-    def run(self, service, region, action_name, params):
-        client = boto3.client(service, region_name=region)
+    def run(self, service, region, action_name, credentials, params):
+        client = None
+        if credentials is not None:
+            session = boto3.Session(
+                aws_access_key_id=response['Credentials']['AccessKeyId'],
+                aws_secret_access_key=response['Credentials']['SecretAccessKey'],
+                aws_session_token=response['Credentials']['SessionToken'])
+            client = session.client(service, region_name=region)
+        else:
+            client = boto3.client(service, region_name=region)
+
+        if client is None:
+            return (False, 'boto3 client creation failed')
+
         if params is not None:
             response = getattr(client, action_name)(**params)
         else:
