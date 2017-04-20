@@ -18,7 +18,7 @@ parameters:
     type: "string"
     description: "Policy document"
   duration:
-    type: int
+    type: integer
     description: "Duration for the session"
     default: 3600
   external_id:
