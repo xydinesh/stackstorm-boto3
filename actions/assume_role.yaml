@@ -1,5 +1,5 @@
 ---
-name: "action"
+name: "assume_role"
 runner_type: "python-script"
 description: "Assume role"
 enabled: true
