@@ -11,9 +11,9 @@ class Boto3ActionRunner(Action):
 
         if credentials is not None:
             session = boto3.Session(
-                aws_access_key_id=response['Credentials']['AccessKeyId'],
-                aws_secret_access_key=response['Credentials']['SecretAccessKey'],
-                aws_session_token=response['Credentials']['SessionToken'])
+                aws_access_key_id=credentials['Credentials']['AccessKeyId'],
+                aws_secret_access_key=credentials['Credentials']['SecretAccessKey'],
+                aws_session_token=credentials['Credentials']['SessionToken'])
             client = session.client(service, region_name=region)
         else:
             client = boto3.client(service, region_name=region)
@@ -25,4 +25,5 @@ class Boto3ActionRunner(Action):
             response = getattr(client, action_name)(**params)
         else:
             response = getattr(client, action_name)()
+
         return (True, response)
