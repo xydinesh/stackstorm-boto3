@@ -7,6 +7,8 @@ from st2actions.runners.pythonrunner import Action
 class Boto3ActionRunner(Action):
     def run(self, service, region, action_name, credentials, params):
         client = None
+        response = None
+
         if credentials is not None:
             session = boto3.Session(
                 aws_access_key_id=response['Credentials']['AccessKeyId'],
