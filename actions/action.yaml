@@ -18,6 +18,9 @@ parameters:
     type: "string"
     description: "Name of the action to run"
     required: true
+  credentials:
+    type: "object"
+    description: "Response from assume role"
   params:
     type: object
     description: "Parameters for the action"
