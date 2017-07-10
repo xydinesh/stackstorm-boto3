@@ -1,17 +1,6 @@
-from datetime import date, datetime
-import json
-
 import boto3
 
 from st2actions.runners.pythonrunner import Action
-
-
-# pylint: disable=too-few-public-methods
-def json_serial(obj):
-    if isinstance(obj, (datetime, date)):
-        serial = obj.isoformat()
-        return serial
-    raise TypeError("Type %s not serializable" % type(obj))
 
 
 # pylint: disable=too-few-public-methods
@@ -37,5 +26,4 @@ class Boto3ActionRunner(Action):
         else:
             response = getattr(client, action_name)()
 
-        response = json.loads(json.dumps(response, default=json_serial))
         return (True, response)
